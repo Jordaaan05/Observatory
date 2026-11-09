@@ -1,0 +1,8 @@
+name: Observatory
+version: '${version}'
+
+main: gay.wumpus.observatory.Observatory
+bootstrapper: gay.wumpus.observatory.ObservatoryBootstrap
+loader: gay.wumpus.observatory.ObservatoryLoader
+api-version: '26.3'
+load: POSTWORLD
