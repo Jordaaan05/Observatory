@@ -8,7 +8,7 @@ import io.papermc.paper.command.brigadier.Commands;
 import org.bukkit.plugin.java.JavaPlugin;
 import net.kyori.adventure.text.Component;
 
-public class Observatory {
+public final class Observatory {
 
     private Observatory() {}
 
@@ -18,7 +18,13 @@ public class Observatory {
 
         reload
                 // execute all at some point
-
+                .executes(context -> {
+                    boolean success = JavaPlugin.getPlugin(gay.wumpus.observatory.Observatory.class).reloadAll();
+                    context.getSource().getSender().sendMessage(
+                            Component.text(success? "Reloaded all successfully." : "Reload failed, check console.")
+                    );
+                    return Command.SINGLE_SUCCESS;
+                })
                 // reload messages
                 .then(Commands.literal("messages")
                         .executes(context -> {
