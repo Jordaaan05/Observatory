@@ -6,6 +6,7 @@ features:
     entries:
       staff:
         permission: "observatory.messages.staff"
+        # Can use MiniMessage format to customise.
         join: "<gradient:#54daf4:#6154B6>[STAFF]</gradient> <aqua><b><player></b> joined the game."
         quit: "<gradient:#54daf4:#6154B6>[STAFF]</gradient> <aqua><b><player></b> left the game."
       default:

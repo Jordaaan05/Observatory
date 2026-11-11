@@ -29,6 +29,9 @@ public final class Observatory extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+
+        // release permissions so they do not persist
+        this.permissionRegistry.releaseAll("join-quit");
     }
 
     public boolean reloadMessages() {
