@@ -1,0 +1,13 @@
+
+# Enable / Disable features
+features:
+  join-quit-messages:
+    enabled: true
+    entries:
+      staff:
+        permission: "observatory.messages.staff"
+        join: "<gradient:#54daf4:#6154B6>[STAFF]</gradient> <aqua><b><player></b> joined the game."
+        quit: "<gradient:#54daf4:#6154B6>[STAFF]</gradient> <aqua><b><player></b> left the game."
+      default:
+        join: "<yellow><player> joined the game."
+        quit: "<yellow><player> left the game."

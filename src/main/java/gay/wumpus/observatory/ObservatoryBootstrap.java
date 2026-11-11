@@ -1,5 +1,6 @@
 package gay.wumpus.observatory;
 
+import gay.wumpus.observatory.commands.Observatory;
 import gay.wumpus.observatory.commands.Ping;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.bootstrap.BootstrapContext;
@@ -14,6 +15,7 @@ class ObservatoryBootstrap implements PluginBootstrap {
             final Commands commands = event.registrar();
 
             commands.register(Ping.create(), "Replies with pong");
+            commands.register(Observatory.create(), "Administrative command for observatory.");
         });
     }
 }
