@@ -1,5 +1,6 @@
 package gay.wumpus.observatory;
 
+import gay.wumpus.observatory.config.PermissionRegistry;
 import gay.wumpus.observatory.messages.MessageFile;
 import gay.wumpus.observatory.messages.JoinQuitMessage;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -13,13 +14,15 @@ import java.io.IOException;
 public final class Observatory extends JavaPlugin {
     private MessageFile messageFile;
     private JoinQuitMessage joinQuit;
+    private PermissionRegistry permissionRegistry;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         saveDefaultConfig();
+        this.permissionRegistry = new PermissionRegistry(getServer().getPluginManager());
         this.messageFile = new MessageFile(this);
-        this.joinQuit = new JoinQuitMessage(this);
+        this.joinQuit = new JoinQuitMessage(this, this.permissionRegistry);
         this.getServer().getPluginManager().registerEvents(this.joinQuit, this);
     }
 

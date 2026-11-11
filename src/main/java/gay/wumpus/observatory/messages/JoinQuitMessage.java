@@ -1,5 +1,6 @@
 package gay.wumpus.observatory.messages;
 
+import gay.wumpus.observatory.config.PermissionRegistry;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
@@ -19,11 +20,13 @@ public class JoinQuitMessage implements Listener {
     private final Logger logger;
     private volatile Snapshot snapshot = Snapshot.EMPTY;
     private final Set<String> registered = new HashSet<>();
+    private PermissionRegistry permissionRegistry;
     private enum EventKind { JOIN, QUIT }
 
-    public JoinQuitMessage(Plugin plugin) {
+    public JoinQuitMessage(Plugin plugin, PermissionRegistry permissionRegistry) {
         this.plugin = plugin;
         this.logger = plugin.getLogger();
+        this.permissionRegistry = permissionRegistry;
         this.rebuild();
     }
 
@@ -41,12 +44,12 @@ public class JoinQuitMessage implements Listener {
     }
 
     @EventHandler
-    private void onPlayerJoin(PlayerJoinEvent event) {
+    public void onPlayerJoin(PlayerJoinEvent event) {
 
     }
 
     @EventHandler
-    private void onPlayerQuit(PlayerQuitEvent event) {
+    public void onPlayerQuit(PlayerQuitEvent event) {
 
     }
 
@@ -59,7 +62,7 @@ public class JoinQuitMessage implements Listener {
         }
         if (!configSection.getBoolean("enabled")) {
             this.snapshot = Snapshot.EMPTY;
-            // unregister perms
+            this.permissionRegistry.sync("join-quit", Set.of());
             return true;
         }
         if (!configSection.getBoolean("enabled")) {
@@ -104,8 +107,7 @@ public class JoinQuitMessage implements Listener {
             messageEntries.add(new MessageEntry(key, permission, join, quit));
         }
         this.snapshot = new Snapshot(List.copyOf(messageEntries), defaultEntry);
-
-
+        this.permissionRegistry.sync("join-quit", permissions);
 
         return true;
     }
