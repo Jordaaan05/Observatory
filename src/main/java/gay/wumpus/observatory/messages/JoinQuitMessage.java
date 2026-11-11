@@ -104,9 +104,11 @@ public class JoinQuitMessage implements Listener {
             String join = entry.getString("join");
             String quit = entry.getString("quit");
 
-            if (join == null || quit == null) {
-                this.logger.warning("[join-quit] entry: '" + key + "' is missing the join/quit messages, set to \"\" to disable.");
-                continue;
+            if (join == null) {
+                join = "";
+            }
+            if (quit == null) {
+                quit = "";
             }
 
             if (key.equals("default")) {

@@ -49,6 +49,7 @@ public final class Observatory extends JavaPlugin {
             getLogger().warning("config.yml failed to load, keeping previous version" + e);
             return false;
         }
+        saveDefaultConfig();
         reloadConfig();
         return joinQuit.rebuild();
     }
